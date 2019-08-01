@@ -135,7 +135,7 @@ description =
                 )
             ]
         , UiFramework.uiParagraph []
-            [ UiFramework.uiText (\_ -> "Containers and responsive margins are coming soon!") ]
+            [ UiFramework.uiText (\_ -> "We'll have to fix the button soon haha it looks a bit funky.") ]
         ]
 
 
