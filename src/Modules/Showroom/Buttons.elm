@@ -2,7 +2,7 @@ module Modules.Showroom.Buttons exposing (buttons)
 
 
 import Modules.Showroom.Types exposing (Msg(..), UiElement)
-import UiFramework 
+import UiFramework
 import Element
 import UiFramework.Button as Button
 import UiFramework.Types exposing (Role(..))
