@@ -1,11 +1,11 @@
 module Modules.Showroom.Table exposing (table)
 
 import Element
+import Element.Font as Font
 import Modules.Showroom.Types exposing (Msg(..), UiElement)
 import UiFramework
 import UiFramework.Table as Table
 import UiFramework.Typography as Typography
-import Element.Font as Font
 
 
 text : String -> UiElement Msg
@@ -25,16 +25,16 @@ table =
 
 tableColumn =
     [ { head = text "Role"
-      , viewData = \data -> UiFramework.uiParagraph [Font.bold] [text data.role]
+      , viewData = \data -> UiFramework.uiParagraph [ Font.bold ] [ text data.role ]
       }
     , { head = text "Column 1"
-      , viewData = \data ->  UiFramework.uiParagraph  [] [text data.column1]
+      , viewData = \data -> UiFramework.uiParagraph [] [ text data.column1 ]
       }
     , { head = text "Column 2"
-      , viewData = \data ->  UiFramework.uiParagraph  [] [text data.column2]
+      , viewData = \data -> UiFramework.uiParagraph [] [ text data.column2 ]
       }
     , { head = text "Column 3"
-      , viewData = \data ->  UiFramework.uiParagraph  [] [text data.column3]
+      , viewData = \data -> UiFramework.uiParagraph [] [ text data.column3 ]
       }
     ]
 

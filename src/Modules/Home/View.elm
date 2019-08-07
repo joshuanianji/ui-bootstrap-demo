@@ -106,6 +106,4 @@ button =
 
 alert : UiElement Msg
 alert =
-    
-        
-        Alert.simple Types.Warning <| text "This is an alert!"
+    Alert.simple Types.Warning <| text "This is an alert!"

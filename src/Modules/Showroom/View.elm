@@ -2,18 +2,17 @@ module Modules.Showroom.View exposing (view)
 
 import Element exposing (DeviceClass(..), Element)
 import Element.Font as Font
-import Modules.Showroom.Types exposing (Model, Msg(..), UiElement, Context)
+import Modules.Showroom.Alerts
+import Modules.Showroom.Badges
+import Modules.Showroom.Buttons
+import Modules.Showroom.Table
+import Modules.Showroom.Types exposing (Context, Model, Msg(..), UiElement)
+import Modules.Showroom.Typography
 import SharedState exposing (SharedState, Theme(..))
 import UiFramework exposing (toElement, uiText)
 import UiFramework.Button as Button
 import UiFramework.Container as Container exposing (Container)
 import UiFramework.Typography as Typography
-import Modules.Showroom.Buttons
-import Modules.Showroom.Badges
-import Modules.Showroom.Alerts
-import Modules.Showroom.Table
-import Modules.Showroom.Typography
-
 
 
 text : String -> UiElement Msg
@@ -79,59 +78,67 @@ title =
                 ]
         )
 
-titleText : UiElement Msg 
+
+titleText : UiElement Msg
 titleText =
     UiFramework.uiText
         (\context ->
-            case context.theme of 
+            case context.theme of
                 Default _ ->
                     "Default"
-                
+
                 Darkly _ ->
                     "Darkly"
-                )
+        )
 
-subTitleText : UiElement Msg 
+
+subTitleText : UiElement Msg
 subTitleText =
     UiFramework.uiText
         (\context ->
-            case context.theme of 
+            case context.theme of
                 Default _ ->
                     "Basic Bootstrap"
-                
+
                 Darkly _ ->
                     "Night Mode"
-                )
+        )
+
 
 buttons : UiElement Msg
 buttons =
     section "Buttons" Modules.Showroom.Buttons.buttons
 
-badges : UiElement Msg 
+
+badges : UiElement Msg
 badges =
     section "Badges" Modules.Showroom.Badges.badges
 
-alerts : UiElement Msg 
+
+alerts : UiElement Msg
 alerts =
     section "Alert" Modules.Showroom.Alerts.alerts
 
 
-table : UiElement Msg 
+table : UiElement Msg
 table =
     section "Table" Modules.Showroom.Table.table
+
 
 typography : UiElement Msg
 typography =
     section "Typography" Modules.Showroom.Typography.typography
 
 
-section : String -> UiElement Msg -> UiElement Msg 
+section : String -> UiElement Msg -> UiElement Msg
 section sectionTitle sectionContent =
     UiFramework.uiColumn
         [ Element.width Element.fill
         , Element.spacing 16
         ]
-        [ Typography.h1 [
-         Element.paddingXY 0 32] (text sectionTitle)
+        [ Typography.h1
+            [ Element.paddingXY 0 32
+            ]
+            (text sectionTitle)
         , sectionContent
         ]

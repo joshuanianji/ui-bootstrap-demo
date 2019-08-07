@@ -1,80 +1,81 @@
 module Modules.Showroom.Buttons exposing (buttons)
 
-
+import Element
 import Modules.Showroom.Types exposing (Msg(..), UiElement)
 import UiFramework
-import Element
 import UiFramework.Button as Button
 import UiFramework.Types exposing (Role(..))
 
 
 buttons : UiElement Msg
-buttons = 
+buttons =
     UiFramework.uiColumn
-        [Element.width Element.fill
+        [ Element.width Element.fill
         , Element.spacing 32
         ]
         [ coloursAndDisplays
-        , sizes]
+        , sizes
+        ]
 
-coloursAndDisplays : UiElement Msg 
+
+coloursAndDisplays : UiElement Msg
 coloursAndDisplays =
     UiFramework.uiColumn
-            [ Element.width Element.fill
-            , Element.spacing 16
-            ]
-            [
-            UiFramework.uiRow
-                [ Element.spacing 4 ]
-                (List.map
-                    (\( role, name ) ->
-                        Button.default
-                            |> Button.withLabel name
-                            |> Button.withRole role
-                            |> Button.view
-                    )
-                    buttonRoles
+        [ Element.width Element.fill
+        , Element.spacing 16
+        ]
+        [ UiFramework.uiRow
+            [ Element.spacing 4 ]
+            (List.map
+                (\( role, name ) ->
+                    Button.default
+                        |> Button.withLabel name
+                        |> Button.withRole role
+                        |> Button.view
                 )
-            , UiFramework.uiRow
-                [ Element.spacing 4 ]
-                (List.map
-                    (\( role, name ) ->
-                        Button.default
-                            |> Button.withLabel name
-                            |> Button.withRole role
-                            |> Button.withDisabled
-                            |> Button.view
-                    )
-                    buttonRoles
+                buttonRoles
+            )
+        , UiFramework.uiRow
+            [ Element.spacing 4 ]
+            (List.map
+                (\( role, name ) ->
+                    Button.default
+                        |> Button.withLabel name
+                        |> Button.withRole role
+                        |> Button.withDisabled
+                        |> Button.view
                 )
-            , UiFramework.uiRow
-                [ Element.spacing 4 ]
-                (List.map
-                    (\( role, name ) ->
-                        Button.default
-                            |> Button.withLabel name
-                            |> Button.withRole role
-                            |> Button.withOutlined
-                            |> Button.view
-                    )
-                    buttonRoles
-                )]
+                buttonRoles
+            )
+        , UiFramework.uiRow
+            [ Element.spacing 4 ]
+            (List.map
+                (\( role, name ) ->
+                    Button.default
+                        |> Button.withLabel name
+                        |> Button.withRole role
+                        |> Button.withOutlined
+                        |> Button.view
+                )
+                buttonRoles
+            )
+        ]
 
 
-sizes : UiElement Msg 
+sizes : UiElement Msg
 sizes =
-    UiFramework.uiRow 
-        [Element.spacing 8]
+    UiFramework.uiRow
+        [ Element.spacing 8 ]
         [ Button.default
             |> Button.withLabel "Large Button"
-            |> Button.withLarge 
+            |> Button.withLarge
             |> Button.view
-        ,  Button.default
-            |> Button.withLabel "Default Button" 
+        , Button.default
+            |> Button.withLabel "Default Button"
             |> Button.view
         , Button.default
             |> Button.withLabel "Small Button"
-            |> Button.withSmall 
+            |> Button.withSmall
             |> Button.view
         ]
 

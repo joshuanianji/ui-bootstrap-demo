@@ -42,11 +42,16 @@ tabBarTitle model =
         NotFoundPage _ ->
             "Not Found"
 
+
+
 -- I use Element.inFront to create a sticky navbar.
+
+
 view : (Msg -> msg) -> Model -> SharedState -> Html msg
 view toMsg model sharedState =
     let
-        themeConfig = SharedState.getThemeConfig sharedState.theme
+        themeConfig =
+            SharedState.getThemeConfig sharedState.theme
     in
     Element.column
         [ Element.width Element.fill
@@ -58,7 +63,7 @@ view toMsg model sharedState =
         [ FontAwesome.Styles.css |> Element.html
         , content model sharedState
         ]
-        |> Element.layout [Element.inFront (navbar model sharedState)]
+        |> Element.layout [ Element.inFront (navbar model sharedState) ]
         |> Html.map toMsg
 
 

@@ -1,4 +1,4 @@
-module SharedState exposing (SharedState, SharedStateUpdate(..), init, update, Theme(..), getThemeConfig)
+module SharedState exposing (SharedState, SharedStateUpdate(..), Theme(..), getThemeConfig, init, update)
 
 import Browser.Navigation
 import Element exposing (Device)
@@ -12,19 +12,20 @@ type alias SharedState =
     }
 
 
-type Theme 
+type Theme
     = Default ThemeConfig
     | Darkly ThemeConfig
 
 
 getThemeConfig : Theme -> ThemeConfig
 getThemeConfig theme =
-    case theme of 
+    case theme of
         Default config ->
-            config 
-        
+            config
+
         Darkly config ->
-            config 
+            config
+
 
 type SharedStateUpdate
     = UpdateDevice Device
