@@ -46,9 +46,9 @@ view sharedState model =
 
 jumbotron : UiElement Msg
 jumbotron =
-    Container.jumbotron
-        |> Container.withChild
-            (UiFramework.uiColumn
+    let
+        jumbotronContent =
+            UiFramework.uiColumn
                 [ Element.width Element.fill
                 , Element.height Element.fill
                 , Element.spacing 16
@@ -58,6 +58,13 @@ jumbotron =
                 , description
                 , button
                 ]
+    in
+    Container.jumbotron
+        |> Container.withFullWidth
+        |> Container.withChild
+            (Container.default
+                |> Container.withChild jumbotronContent
+                |> Container.view
             )
         |> Container.view
 
@@ -65,7 +72,7 @@ jumbotron =
 title : UiElement Msg
 title =
     Typography.display2 [ Element.paddingXY 0 30 ] <|
-        text "Hello, world!"
+        text "Hello, World!"
 
 
 lead : UiElement Msg
@@ -99,5 +106,6 @@ button =
 
 alert : UiElement Msg
 alert =
-    Alert.simple Types.Warning <|
-        text "This is an alert!"
+    
+        
+        Alert.simple Types.Warning <| text "This is an alert!"

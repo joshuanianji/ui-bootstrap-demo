@@ -7,4 +7,4 @@ import SharedState exposing (SharedState)
 
 view : SharedState -> Model -> Element Msg
 view sharedState model =
-    Element.text "hello"
+    Element.text "Not found lol"

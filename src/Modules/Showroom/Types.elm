@@ -1,13 +1,26 @@
-module Modules.Showroom.Types exposing (Model, Msg(..), init, update)
+module Modules.Showroom.Types exposing (Model, Msg(..), init, update, UiElement, Context)
 
 import Browser.Navigation as Navigation
+import UiFramework exposing (UiContextual, WithContext)
 import Routes exposing (Route)
 import SharedState exposing (SharedState, SharedStateUpdate(..))
 
 
-type alias Model =
+-- UIFRAMEWORK TYPE
+
+
+type alias UiElement msg =
+    WithContext Context msg
+
+
+type alias Context =
     {}
 
+
+-- MODEL 
+
+type alias Model =
+    {}
 
 init : ( Model, Cmd Msg )
 init =
