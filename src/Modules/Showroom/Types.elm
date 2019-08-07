@@ -13,8 +13,9 @@ type alias UiElement msg =
     WithContext Context msg
 
 -- add in theme to the Context
+
 type alias Context =
-    {theme : Theme}
+    { theme : Theme }
 
 
 -- MODEL 
