@@ -6,9 +6,8 @@ import Modules.Home.Types as Home
 import Modules.NotFound.Types as NotFound
 import Modules.Showroom.Types as Showroom
 import Routes exposing (Route(..))
-import SharedState exposing (SharedState, SharedStateUpdate)
+import SharedState exposing (SharedState, SharedStateUpdate, Theme)
 import Task
-import UiFramework.Configuration exposing (ThemeConfig)
 import Url
 
 
@@ -24,7 +23,7 @@ type Msg
     | HomeMsg Home.Msg
     | ShowroomMsg Showroom.Msg
     | NotFoundMsg NotFound.Msg
-    | SelectTheme ThemeConfig
+    | SelectTheme Theme
     | ToggleDropdown
     | ToggleMenu
     | NoOp
@@ -100,10 +99,10 @@ update sharedState msg model =
             NotFound.update sharedState subMsg subModel
                 |> updateWith NotFoundPage NotFoundMsg model
 
-        ( SelectTheme themeConfig, _ ) ->
+        ( SelectTheme theme, _ ) ->
             ( { model | dropdownMenuState = AllClosed }
             , Cmd.none
-            , SharedState.UpdateTheme themeConfig
+            , SharedState.UpdateTheme theme
             )
 
         ( ToggleDropdown, _ ) ->

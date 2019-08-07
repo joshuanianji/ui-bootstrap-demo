@@ -70,12 +70,11 @@ sizes =
             |> Button.withLarge 
             |> Button.view
         ,  Button.default
-            |> Button.withLabel "Default Button"
-            |> Button.withLarge 
+            |> Button.withLabel "Default Button" 
             |> Button.view
         , Button.default
             |> Button.withLabel "Small Button"
-            |> Button.withLarge 
+            |> Button.withSmall 
             |> Button.view
         ]
 

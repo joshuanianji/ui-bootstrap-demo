@@ -1,4 +1,4 @@
-module SharedState exposing (SharedState, SharedStateUpdate(..), init, update)
+module SharedState exposing (SharedState, SharedStateUpdate(..), init, update, Theme(..), getThemeConfig)
 
 import Browser.Navigation
 import Element exposing (Device)
@@ -8,13 +8,27 @@ import UiFramework.Configuration exposing (ThemeConfig, defaultThemeConfig)
 type alias SharedState =
     { navKey : Browser.Navigation.Key -- used by other pages to navigate (through Browser.Navigation.pushUrl)
     , device : Device
-    , theme : ThemeConfig
+    , theme : Theme
     }
 
 
+type Theme 
+    = Default ThemeConfig
+    | Darkly ThemeConfig
+
+
+getThemeConfig : Theme -> ThemeConfig
+getThemeConfig theme =
+    case theme of 
+        Default config ->
+            config 
+        
+        Darkly config ->
+            config 
+
 type SharedStateUpdate
     = UpdateDevice Device
-    | UpdateTheme ThemeConfig
+    | UpdateTheme Theme
     | NoUpdate
 
 
@@ -22,7 +36,7 @@ init : Device -> Browser.Navigation.Key -> SharedState
 init device key =
     { navKey = key
     , device = device
-    , theme = defaultThemeConfig
+    , theme = Default defaultThemeConfig
     }
 
 

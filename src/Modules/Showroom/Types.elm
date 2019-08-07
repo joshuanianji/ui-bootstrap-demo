@@ -3,7 +3,7 @@ module Modules.Showroom.Types exposing (Model, Msg(..), init, update, UiElement,
 import Browser.Navigation as Navigation
 import UiFramework exposing (UiContextual, WithContext)
 import Routes exposing (Route)
-import SharedState exposing (SharedState, SharedStateUpdate(..))
+import SharedState exposing (SharedState, SharedStateUpdate(..), Theme)
 
 
 -- UIFRAMEWORK TYPE
@@ -12,9 +12,9 @@ import SharedState exposing (SharedState, SharedStateUpdate(..))
 type alias UiElement msg =
     WithContext Context msg
 
-
+-- add in theme to the Context
 type alias Context =
-    {}
+    {theme : Theme}
 
 
 -- MODEL 

@@ -3,7 +3,7 @@ module Modules.Showroom.View exposing (view)
 import Element exposing (DeviceClass(..), Element)
 import Element.Font as Font
 import Modules.Showroom.Types exposing (Model, Msg(..), UiElement, Context)
-import SharedState exposing (SharedState)
+import SharedState exposing (SharedState, Theme(..))
 import UiFramework exposing (toElement, uiText)
 import UiFramework.Button as Button
 import UiFramework.Container as Container exposing (Container)
@@ -11,7 +11,7 @@ import UiFramework.Typography as Typography
 import Modules.Showroom.Buttons
 import Modules.Showroom.Badges
 import Modules.Showroom.Alerts
-
+import Modules.Showroom.Table
 
 
 
@@ -26,7 +26,8 @@ view sharedState model =
         context =
             { device = sharedState.device
             , parentRole = Nothing
-            , themeConfig = sharedState.theme
+            , theme = sharedState.theme
+            , themeConfig = SharedState.getThemeConfig sharedState.theme
             }
     in
     Container.default
@@ -46,11 +47,12 @@ content =
         , buttons
         , badges
         , alerts
+        , table
         ]
 
 
 
--- i.e. the theme name
+-- i.e. the theme name and a small description below
 
 
 title : UiElement Msg
@@ -70,39 +72,60 @@ title =
                 [ Element.spacing 16
                 , Element.width Element.fill
                 ]
-                [ Typography.display4 [ align ] (text "nah")
-                , Typography.textLead [ align ] (text "This title doesn't change as of yet")
+                [ Typography.display4 [ align ] titleText
+                , Typography.textLead [ align ] subTitleText
                 ]
         )
 
+titleText : UiElement Msg 
+titleText =
+    UiFramework.uiText
+        (\context ->
+            case context.theme of 
+                Default _ ->
+                    "Default"
+                
+                Darkly _ ->
+                    "Darkly"
+                )
+
+subTitleText : UiElement Msg 
+subTitleText =
+    UiFramework.uiText
+        (\context ->
+            case context.theme of 
+                Default _ ->
+                    "Basic Bootstrap"
+                
+                Darkly _ ->
+                    "Night Mode"
+                )
 
 buttons : UiElement Msg
 buttons =
-    UiFramework.uiColumn
-        [ Element.width Element.fill
-        , Element.spacing 16
-        ]
-        [ Typography.h1 [] (text "Buttons")
-        , Modules.Showroom.Buttons.buttons
-        ]
+    section "Buttons" Modules.Showroom.Buttons.buttons
 
 badges : UiElement Msg 
 badges =
+    section "Badges" Modules.Showroom.Badges.badges
+
+alerts : UiElement Msg 
+alerts =
+    section "Alert" Modules.Showroom.Alerts.alerts
+
+
+table : UiElement Msg 
+table =
+    section "Table" Modules.Showroom.Table.table
+
+
+section : String -> UiElement Msg -> UiElement Msg 
+section sectionTitle sectionContent =
     UiFramework.uiColumn
         [ Element.width Element.fill
         , Element.spacing 16
         ]
-        [ Typography.h1 [] (text "Badges")
-        , Modules.Showroom.Badges.badges
-        ]
-
-alerts : UiElement Msg 
-alerts =
-    UiFramework.uiColumn
-    [ Element.width Element.fill
-        , Element.spacing 16
-        ]
-        [ Typography.h1 [] (text "Alert")
-        , 
-        Modules.Showroom.Alerts.alerts
+        [ Typography.h1 [
+         Element.paddingXY 0 32] (text sectionTitle)
+        , sectionContent
         ]

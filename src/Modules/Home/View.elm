@@ -37,7 +37,7 @@ view sharedState model =
         context =
             { device = sharedState.device
             , parentRole = Nothing
-            , themeConfig = sharedState.theme
+            , themeConfig = SharedState.getThemeConfig sharedState.theme
             }
     in
     toElement context <|

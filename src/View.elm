@@ -12,7 +12,7 @@ import Modules.NotFound.View as NotFound
 import Modules.Showroom.View as Showroom
 import Router exposing (DropdownMenuState(..), Model, Msg(..), Page(..))
 import Routes exposing (Route(..))
-import SharedState exposing (SharedState)
+import SharedState exposing (SharedState, Theme(..))
 import Themes.Darkly exposing (darklyThemeConfig)
 import UiFramework
 import UiFramework.Configuration exposing (defaultThemeConfig)
@@ -45,11 +45,14 @@ tabBarTitle model =
 
 view : (Msg -> msg) -> Model -> SharedState -> Html msg
 view toMsg model sharedState =
+    let
+        themeConfig = SharedState.getThemeConfig sharedState.theme
+    in
     Element.column
         [ Element.width Element.fill
         , Element.height Element.fill
-        , Background.color sharedState.theme.bodyBackground
-        , Font.color <| sharedState.theme.fontColor sharedState.theme.bodyBackground
+        , Background.color themeConfig.bodyBackground
+        , Font.color <| themeConfig.fontColor themeConfig.bodyBackground
         ]
         [ FontAwesome.Styles.css |> Element.html
         , navbar model sharedState
@@ -69,7 +72,7 @@ navbar model sharedState =
 
         context =
             { device = sharedState.device
-            , themeConfig = sharedState.theme
+            , themeConfig = SharedState.getThemeConfig sharedState.theme
             , parentRole = Nothing
             , state = navbarState
             }
@@ -91,9 +94,9 @@ navbar model sharedState =
         themeSelect =
             Navbar.dropdown ToggleDropdown ThemeSelectOpen
                 |> Navbar.withDropdownMenuItems
-                    [ Navbar.dropdownMenuLinkItem (SelectTheme defaultThemeConfig)
+                    [ Navbar.dropdownMenuLinkItem (SelectTheme <| Default defaultThemeConfig)
                         |> Navbar.withDropdownMenuTitle "Default"
-                    , Navbar.dropdownMenuLinkItem (SelectTheme darklyThemeConfig)
+                    , Navbar.dropdownMenuLinkItem (SelectTheme <| Darkly darklyThemeConfig)
                         |> Navbar.withDropdownMenuTitle "Dark"
                     ]
                 |> Navbar.DropdownItem
