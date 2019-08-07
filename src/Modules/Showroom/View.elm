@@ -12,6 +12,7 @@ import Modules.Showroom.Buttons
 import Modules.Showroom.Badges
 import Modules.Showroom.Alerts
 import Modules.Showroom.Table
+import Modules.Showroom.Typography
 
 
 
@@ -45,6 +46,7 @@ content =
         ]
         [ title
         , buttons
+        , typography
         , badges
         , alerts
         , table
@@ -117,6 +119,10 @@ alerts =
 table : UiElement Msg 
 table =
     section "Table" Modules.Showroom.Table.table
+
+typography : UiElement Msg
+typography =
+    section "Typography" Modules.Showroom.Typography.typography
 
 
 section : String -> UiElement Msg -> UiElement Msg 
