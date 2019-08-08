@@ -4,6 +4,6 @@ This small application is created to demonstrate [elm-ui-bootstrap](https://gith
 
 ## Run Locally
 
-Make sure elm-live is installed, and run the following command in the root directory:
+Make sure npm, elm and elm-live is installed, and run the following command in the root directory:
 
 `elm-live src/Main.elm -- --output=elm.js`
