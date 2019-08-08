@@ -1,17 +1,16 @@
 module Modules.Showroom.Pagination exposing (pagination, paginationState)
 
-import Element
+import Element exposing (Element)
 import Modules.Showroom.Types exposing (Msg(..), UiElement)
+import SharedState exposing (SharedState)
 import UiFramework
 import UiFramework.Pagination as Pagination exposing (Item(..), PaginationState)
 import UiFramework.Types exposing (Role(..))
-import SharedState exposing (SharedState)
-import Element exposing (Element)
 
 
 pagination : UiElement Msg
 pagination =
-    Pagination.default PaginationMsg 
+    Pagination.default PaginationMsg
         |> Pagination.withItems paginationItems
         |> Pagination.view
 
@@ -22,11 +21,11 @@ paginationState =
     }
 
 
-
 paginationItems =
     [ NumberItem 1
     , NumberItem 2
     , NumberItem 3
     , EllipsisItem
     , NumberItem 9
-    , NumberItem 10]
+    , NumberItem 10
+    ]

@@ -4,7 +4,7 @@ import Browser.Navigation as Navigation
 import Routes exposing (Route)
 import SharedState exposing (SharedState, SharedStateUpdate(..), Theme)
 import UiFramework exposing (UiContextual, WithContext)
-import UiFramework.Pagination exposing ( PaginationState)
+import UiFramework.Pagination exposing (PaginationState)
 
 
 
@@ -15,25 +15,23 @@ type alias UiElement msg =
     WithContext Context msg
 
 
-
 {-| the ui Bootstrap defines three default fields, as defined in the source code.
 
 (from UiFramework.Internal)
 type alias UiContextual context =
-    { context
-        | device : Device
-        , themeConfig : ThemeConfig
-        , parentRole : Maybe Role
-    }
+{ context
+| device : Device
+, themeConfig : ThemeConfig
+, parentRole : Maybe Role
+}
 
 If we need more, we need to define them ourselves in this Context type, which will be added on to the context in our Modules.Showroom.View module.
 
 -}
-
-
 type alias Context =
     { theme : Theme
-    , state : PaginationState }
+    , state : PaginationState
+    }
 
 
 
@@ -61,4 +59,4 @@ update sharedState msg model =
             ( model, Cmd.none, NoUpdate )
 
         PaginationMsg int ->
-            ( model, Cmd.none, NoUpdate)
+            ( model, Cmd.none, NoUpdate )

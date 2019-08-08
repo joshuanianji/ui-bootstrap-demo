@@ -5,6 +5,7 @@ import Element.Background as Background
 import Element.Font as Font
 import FontAwesome.Solid
 import Modules.Home.Types exposing (Model, Msg(..))
+import Routes exposing (Route(..))
 import SharedState exposing (SharedState)
 import Themes.Darkly exposing (darklyThemeConfig)
 import UiFramework exposing (UiContextual, WithContext, toElement, uiText)
@@ -16,7 +17,6 @@ import UiFramework.Container as Container
 import UiFramework.Navbar as Navbar
 import UiFramework.Types as Types
 import UiFramework.Typography as Typography
-import Routes exposing (Route(..))
 
 
 type alias UiElement msg =
@@ -44,9 +44,9 @@ view sharedState model =
     toElement context <|
         jumbotron
 
+
 {-| full-width jumbotron serves as a background, while the container within it holds the content.
 -}
-
 jumbotron : UiElement Msg
 jumbotron =
     let

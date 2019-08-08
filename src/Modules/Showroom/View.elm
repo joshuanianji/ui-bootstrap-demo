@@ -5,6 +5,7 @@ import Element.Font as Font
 import Modules.Showroom.Alerts
 import Modules.Showroom.Badges
 import Modules.Showroom.Buttons
+import Modules.Showroom.Pagination
 import Modules.Showroom.Table
 import Modules.Showroom.Types exposing (Context, Model, Msg(..), UiElement)
 import Modules.Showroom.Typography
@@ -13,7 +14,6 @@ import UiFramework exposing (toElement, uiText)
 import UiFramework.Button as Button
 import UiFramework.Container as Container exposing (Container)
 import UiFramework.Typography as Typography
-import Modules.Showroom.Pagination
 
 
 text : String -> UiElement Msg
@@ -133,9 +133,9 @@ typography =
     section "Typography" Modules.Showroom.Typography.typography
 
 
-pagination : UiElement Msg 
+pagination : UiElement Msg
 pagination =
-    section "Pagination" Modules.Showroom.Pagination.pagination 
+    section "Pagination" Modules.Showroom.Pagination.pagination
 
 
 section : String -> UiElement Msg -> UiElement Msg
