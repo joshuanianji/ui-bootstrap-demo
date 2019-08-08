@@ -44,6 +44,8 @@ view sharedState model =
     toElement context <|
         jumbotron
 
+{-| full-width jumbotron serves as a background, while the container within it holds the content.
+-}
 
 jumbotron : UiElement Msg
 jumbotron =
