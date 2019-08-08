@@ -2,9 +2,9 @@ module Router exposing (DropdownMenuState(..), Model, Msg(..), Page(..), init, i
 
 import Browser exposing (UrlRequest(..))
 import Browser.Navigation as Nav
-import Modules.Home.Types as Home
-import Modules.NotFound.Types as NotFound
-import Modules.Showroom.Types as Showroom
+import Page.Home as Home
+import Page.NotFound as NotFound
+import Page.Showroom as Showroom
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate, Theme)
 import Task

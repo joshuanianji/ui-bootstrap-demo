@@ -7,9 +7,9 @@ import Element.Font as Font
 import FontAwesome.Solid
 import FontAwesome.Styles
 import Html exposing (Html)
-import Modules.Home.View as Home
-import Modules.NotFound.View as NotFound
-import Modules.Showroom.View as Showroom
+import Page.Home as Home
+import Page.NotFound as NotFound
+import Page.Showroom as Showroom
 import Router exposing (DropdownMenuState(..), Model, Msg(..), Page(..))
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, Theme(..))

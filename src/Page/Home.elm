@@ -1,12 +1,12 @@
-module Modules.Home.View exposing (view)
+module Page.Home exposing (Model, Msg(..), update, view, init)
 
+import Browser.Navigation as Navigation
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Font as Font
 import FontAwesome.Solid
-import Modules.Home.Types exposing (Model, Msg(..))
 import Routes exposing (Route(..))
-import SharedState exposing (SharedState)
+import SharedState exposing (SharedState, SharedStateUpdate)
 import Themes.Darkly exposing (darklyThemeConfig)
 import UiFramework exposing (UiContextual, WithContext, toElement, uiText)
 import UiFramework.Alert as Alert
@@ -19,8 +19,31 @@ import UiFramework.Types as Types
 import UiFramework.Typography as Typography
 
 
+
+-- UIFRAMEWORK TYPE
+
+
 type alias UiElement msg =
     WithContext Context msg
+
+
+
+-- MODEL
+
+
+type alias Model =
+    {}
+
+
+init : ( Model, Cmd Msg )
+init =
+    ( {}
+    , Cmd.none
+    )
+
+
+
+-- VIEW
 
 
 type alias Context =
@@ -110,3 +133,22 @@ button =
 alert : UiElement Msg
 alert =
     Alert.simple Types.Warning <| text "This is an alert!"
+
+
+
+-- UPDATE
+
+
+type Msg
+    = NoOp
+    | NavigateTo Route
+
+
+update : SharedState -> Msg -> Model -> ( Model, Cmd Msg, SharedStateUpdate )
+update sharedState msg model =
+    case msg of
+        NavigateTo route ->
+            ( model, Navigation.pushUrl sharedState.navKey (Routes.toUrlString route), SharedState.NoUpdate )
+
+        NoOp ->
+            ( model, Cmd.none, SharedState.NoUpdate )

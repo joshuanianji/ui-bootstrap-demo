@@ -58,6 +58,12 @@ init flags url key =
     )
 
 
+-- VIEW --
+
+
+view : Model -> Browser.Document Msg
+view model =
+    viewApplication RouterMsg model.routerModel model.sharedState
 
 -- UPDATE --
 
@@ -131,9 +137,3 @@ subscriptions model =
 
 
 
--- VIEW --
-
-
-view : Model -> Browser.Document Msg
-view model =
-    viewApplication RouterMsg model.routerModel model.sharedState

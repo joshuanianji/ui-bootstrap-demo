@@ -1,8 +1,13 @@
-module Modules.NotFound.Types exposing (Model, Msg(..), init, update)
+module Page.NotFound exposing (Model, Msg(..), init, update, view)
 
 import Browser.Navigation as Navigation
+import Element exposing (Element)
 import Routes exposing (Route)
 import SharedState exposing (SharedState, SharedStateUpdate(..))
+
+
+
+-- MODEL
 
 
 type alias Model =
@@ -12,6 +17,19 @@ type alias Model =
 init : ( Model, Cmd Msg )
 init =
     ( {}, Cmd.none )
+
+
+
+-- VIEW
+
+
+view : SharedState -> Model -> Element Msg
+view sharedState model =
+    Element.text "bruh moment"
+
+
+
+-- UPDATE
 
 
 type Msg
