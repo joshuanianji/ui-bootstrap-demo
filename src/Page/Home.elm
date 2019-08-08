@@ -1,14 +1,13 @@
-module Page.Home exposing (Model, Msg(..), update, view, init)
+module Page.Home exposing (Model, Msg(..), init, update, view)
 
 import Browser.Navigation as Navigation
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Font as Font
-import FontAwesome.Solid
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate)
 import Themes.Darkly exposing (darklyThemeConfig)
-import UiFramework exposing (UiContextual, WithContext, toElement, uiText)
+import UiFramework exposing (UiContextual, WithContext, toElement)
 import UiFramework.Alert as Alert
 import UiFramework.Button as Button
 import UiFramework.Colors as Colors
@@ -42,17 +41,17 @@ init =
     )
 
 
-
--- VIEW
-
-
 type alias Context =
     {}
 
 
+
+-- VIEW
+
+
 text : String -> UiElement Msg
 text str =
-    uiText (\_ -> str)
+    UiFramework.uiText (\_ -> str)
 
 
 view : SharedState -> Model -> Element Msg
@@ -87,11 +86,7 @@ jumbotron =
     in
     Container.jumbotron
         |> Container.withFullWidth
-        |> Container.withChild
-            (Container.default
-                |> Container.withChild jumbotronContent
-                |> Container.view
-            )
+        |> Container.withChild (Container.simple jumbotronContent)
         |> Container.view
 
 

@@ -14,7 +14,7 @@ import Router exposing (DropdownMenuState(..), Model, Msg(..), Page(..))
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, Theme(..))
 import Themes.Darkly exposing (darklyThemeConfig)
-import UiFramework
+import UiFramework exposing (toElement)
 import UiFramework.Configuration exposing (defaultThemeConfig)
 import UiFramework.Navbar as Navbar
 
@@ -117,7 +117,7 @@ navbar model sharedState =
             , themeSelect
             ]
         |> Navbar.view
-        |> UiFramework.toElement context
+        |> toElement context
 
 
 content : Model -> SharedState -> Element Msg

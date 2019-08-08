@@ -5,7 +5,7 @@ import Element exposing (DeviceClass(..), Element)
 import Element.Font as Font
 import Routes exposing (Route)
 import SharedState exposing (SharedState, SharedStateUpdate(..), Theme(..))
-import UiFramework exposing (UiContextual, WithContext)
+import UiFramework exposing (UiContextual, WithContext, toElement)
 import UiFramework.Alert as Alert
 import UiFramework.Badge as Badge
 import UiFramework.Button as Button
@@ -92,7 +92,7 @@ view sharedState model =
                 ]
             )
         |> Container.view
-        |> UiFramework.toElement context
+        |> toElement context
 
 
 
