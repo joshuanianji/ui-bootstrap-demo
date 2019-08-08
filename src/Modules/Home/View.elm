@@ -16,6 +16,7 @@ import UiFramework.Container as Container
 import UiFramework.Navbar as Navbar
 import UiFramework.Types as Types
 import UiFramework.Typography as Typography
+import Routes exposing (Route(..))
 
 
 type alias UiElement msg =
@@ -98,7 +99,7 @@ description =
 button : UiElement Msg
 button =
     Button.default
-        |> Button.withMessage Nothing
+        |> Button.withMessage (Just <| NavigateTo Showroom)
         |> Button.withLabel "Learn more »"
         |> Button.withLarge
         |> Button.view
