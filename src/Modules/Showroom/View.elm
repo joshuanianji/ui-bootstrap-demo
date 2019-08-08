@@ -13,6 +13,7 @@ import UiFramework exposing (toElement, uiText)
 import UiFramework.Button as Button
 import UiFramework.Container as Container exposing (Container)
 import UiFramework.Typography as Typography
+import Modules.Showroom.Pagination
 
 
 text : String -> UiElement Msg
@@ -26,8 +27,9 @@ view sharedState model =
         context =
             { device = sharedState.device
             , parentRole = Nothing
-            , theme = sharedState.theme
             , themeConfig = SharedState.getThemeConfig sharedState.theme
+            , theme = sharedState.theme
+            , state = Modules.Showroom.Pagination.paginationState
             }
     in
     Container.default
@@ -49,6 +51,7 @@ content =
         , badges
         , alerts
         , table
+        , pagination
         ]
 
 
@@ -128,6 +131,11 @@ table =
 typography : UiElement Msg
 typography =
     section "Typography" Modules.Showroom.Typography.typography
+
+
+pagination : UiElement Msg 
+pagination =
+    section "Pagination" Modules.Showroom.Pagination.pagination 
 
 
 section : String -> UiElement Msg -> UiElement Msg
