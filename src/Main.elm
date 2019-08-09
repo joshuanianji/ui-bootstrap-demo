@@ -58,12 +58,15 @@ init flags url key =
     )
 
 
+
 -- VIEW --
 
 
 view : Model -> Browser.Document Msg
 view model =
     viewApplication RouterMsg model.routerModel model.sharedState
+
+
 
 -- UPDATE --
 
@@ -97,7 +100,7 @@ update msg model =
 
         WindowSizeChange windowSize ->
             updateSharedState model <|
-                SharedState.UpdateDevice (Element.classifyDevice windowSize |> Debug.log "Device")
+                SharedState.UpdateDevice (Element.classifyDevice (Debug.log "Window Size" windowSize) |> Debug.log "Device")
 
         RouterMsg routerMsg ->
             updateRouter model routerMsg
@@ -134,6 +137,3 @@ subscriptions model =
         (\x y ->
             WindowSizeChange (WindowSize x y)
         )
-
-
-
