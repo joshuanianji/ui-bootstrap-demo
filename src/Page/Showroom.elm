@@ -142,7 +142,7 @@ buttons =
                 [ Element.width Element.fill
                 , Element.spacing 16
                 ]
-                [ UiFramework.uiRow
+                [ UiFramework.uiWrappedRow
                     [ Element.spacing 4 ]
                     (List.map
                         (\( role, name ) ->
@@ -153,7 +153,7 @@ buttons =
                         )
                         rolesAndNames
                     )
-                , UiFramework.uiRow
+                , UiFramework.uiWrappedRow
                     [ Element.spacing 4 ]
                     (List.map
                         (\( role, name ) ->
@@ -165,7 +165,7 @@ buttons =
                         )
                         rolesAndNames
                     )
-                , UiFramework.uiRow
+                , UiFramework.uiWrappedRow
                     [ Element.spacing 4 ]
                     (List.map
                         (\( role, name ) ->
@@ -180,7 +180,7 @@ buttons =
                 ]
 
             -- different sizes
-            , UiFramework.uiRow
+            , UiFramework.uiWrappedRow
                 [ Element.spacing 8 ]
                 [ Button.default
                     |> Button.withLabel "Large Button"
@@ -204,7 +204,7 @@ badges =
             [ Element.width Element.fill
             , Element.spacing 16
             ]
-            [ UiFramework.uiRow
+            [ UiFramework.uiWrappedRow
                 [ Element.spacing 4 ]
                 (List.map
                     (\( role, name ) ->
@@ -212,7 +212,7 @@ badges =
                     )
                     rolesAndNames
                 )
-            , UiFramework.uiRow
+            , UiFramework.uiWrappedRow
                 [ Element.spacing 4 ]
                 (List.map
                     (\( role, name ) ->

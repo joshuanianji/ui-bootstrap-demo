@@ -93,7 +93,7 @@ jumbotron =
 title : UiElement Msg
 title =
     Typography.display2 [ Element.paddingXY 0 30 ] <|
-        text "Hello, World!"
+        UiFramework.uiParagraph [] [ text "Hello, World!" ]
 
 
 lead : UiElement Msg
