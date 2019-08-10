@@ -32,13 +32,10 @@ they are:
   - themeConfig : ThemeConfig
   - parentRole : Maybe Role
 
-If we need more, we need to define them ourselves in this Context type,
-which will be added on to the context in our view function
-
+We need to define a Theme type so we will explicitly know what out theme is, so we can change the title as necessary.
 -}
 type alias Context =
     { theme : Theme
-    , state : PaginationState
     }
 
 
@@ -52,7 +49,8 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( {}
+    , Cmd.none )
 
 
 
@@ -72,7 +70,6 @@ view sharedState model =
             , parentRole = Nothing
             , themeConfig = SharedState.getThemeConfig sharedState.theme
             , theme = sharedState.theme
-            , state = paginationState
             }
     in
     Container.default
@@ -88,7 +85,6 @@ view sharedState model =
                 , badges
                 , alerts
                 , table
-                , pagination
                 ]
             )
         |> Container.view
@@ -403,28 +399,28 @@ typography =
             ]
 
 
-pagination : UiElement Msg
-pagination =
-    section "Pagination" <|
-        let
-            paginationItems =
-                [ NumberItem 1
-                , NumberItem 2
-                , NumberItem 3
-                , EllipsisItem
-                , NumberItem 9
-                , NumberItem 10
-                ]
-        in
-        Pagination.default PaginationMsg
-            |> Pagination.withItems paginationItems
-            |> Pagination.view
+-- pagination : UiElement Msg
+-- pagination =
+--     section "Pagination" <|
+--         let
+--             paginationItems =
+--                 [ NumberItem 1
+--                 , NumberItem 2
+--                 , NumberItem 3
+--                 , EllipsisItem
+--                 , NumberItem 9
+--                 , NumberItem 10
+--                 ]
+--         in
+--         Pagination.default PaginationMsg
+--             |> Pagination.withItems paginationItems
+--             |> Pagination.view
 
 
-paginationState =
-    { numberOfSlices = 10
-    , currentSliceNumber = 1 -- start from 1
-    }
+-- paginationState =
+--     { numberOfSlices = 10
+--     , currentSliceNumber = 1 -- start from 1
+--     }
 
 
 section : String -> UiElement Msg -> UiElement Msg
@@ -460,7 +456,7 @@ rolesAndNames =
 
 type Msg
     = NoOp
-    | PaginationMsg Int
+    -- | PaginationMsg Int
 
 
 update : SharedState -> Msg -> Model -> ( Model, Cmd Msg, SharedStateUpdate )
@@ -469,5 +465,5 @@ update sharedState msg model =
         NoOp ->
             ( model, Cmd.none, NoUpdate )
 
-        PaginationMsg int ->
-            ( model, Cmd.none, NoUpdate )
+        -- PaginationMsg int ->
+        --     ( model, Cmd.none, NoUpdate )

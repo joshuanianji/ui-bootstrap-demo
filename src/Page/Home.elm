@@ -10,7 +10,6 @@ import Themes.Darkly exposing (darklyThemeConfig)
 import UiFramework exposing (UiContextual, WithContext, toElement)
 import UiFramework.Alert as Alert
 import UiFramework.Button as Button
-import UiFramework.Colors as Colors
 import UiFramework.Configuration exposing (ThemeConfig, defaultThemeConfig)
 import UiFramework.Container as Container
 import UiFramework.Navbar as Navbar

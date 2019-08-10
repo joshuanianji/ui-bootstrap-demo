@@ -4,10 +4,9 @@ import Browser
 import Browser.Events
 import Browser.Navigation as Nav
 import Element exposing (Device)
-import Router
+import Router exposing (viewApplication)
 import SharedState exposing (SharedState, SharedStateUpdate(..))
 import Url
-import View exposing (viewApplication)
 
 
 
