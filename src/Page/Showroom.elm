@@ -44,15 +44,18 @@ type alias Context =
 
 
 type alias Model =
-    {}
+    { paginationState : PaginationState}
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}
+    ( { paginationState = paginationState}
     , Cmd.none )
 
-
+paginationState =
+    { numberOfSlices = 10
+    , currentSliceNumber = 1 -- start from 1
+    }
 
 -- VIEW
 
@@ -85,6 +88,7 @@ view sharedState model =
                 , badges
                 , alerts
                 , table
+                , pagination model.paginationState
                 ]
             )
         |> Container.view
@@ -399,28 +403,23 @@ typography =
             ]
 
 
--- pagination : UiElement Msg
--- pagination =
---     section "Pagination" <|
---         let
---             paginationItems =
---                 [ NumberItem 1
---                 , NumberItem 2
---                 , NumberItem 3
---                 , EllipsisItem
---                 , NumberItem 9
---                 , NumberItem 10
---                 ]
---         in
---         Pagination.default PaginationMsg
---             |> Pagination.withItems paginationItems
---             |> Pagination.view
+pagination : PaginationState -> UiElement Msg
+pagination state =
+    section "Pagination" <|
+        let
+            paginationItems =
+                [ NumberItem 1
+                , NumberItem 2
+                , NumberItem 3
+                , EllipsisItem
+                , NumberItem 9
+                , NumberItem 10
+                ]
+        in
+        Pagination.default PaginationMsg
+            |> Pagination.withItems paginationItems
+            |> Pagination.view state
 
-
--- paginationState =
---     { numberOfSlices = 10
---     , currentSliceNumber = 1 -- start from 1
---     }
 
 
 section : String -> UiElement Msg -> UiElement Msg
@@ -456,7 +455,7 @@ rolesAndNames =
 
 type Msg
     = NoOp
-    -- | PaginationMsg Int
+    | PaginationMsg Int
 
 
 update : SharedState -> Msg -> Model -> ( Model, Cmd Msg, SharedStateUpdate )
@@ -465,5 +464,5 @@ update sharedState msg model =
         NoOp ->
             ( model, Cmd.none, NoUpdate )
 
-        -- PaginationMsg int ->
-        --     ( model, Cmd.none, NoUpdate )
+        PaginationMsg int ->
+            ( model, Cmd.none, NoUpdate )
