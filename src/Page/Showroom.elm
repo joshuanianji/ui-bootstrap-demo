@@ -204,7 +204,8 @@ badges =
             [ Element.width Element.fill
             , Element.spacing 16
             ]
-            [ UiFramework.uiWrappedRow
+            [ -- simple badges 
+            UiFramework.uiWrappedRow
                 [ Element.spacing 4 ]
                 (List.map
                     (\( role, name ) ->
@@ -212,6 +213,7 @@ badges =
                     )
                     rolesAndNames
                 )
+            -- pill badges
             , UiFramework.uiWrappedRow
                 [ Element.spacing 4 ]
                 (List.map
