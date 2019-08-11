@@ -42,12 +42,22 @@ type alias Context =
 
 
 
+-- Nav type
+
+
+type alias NavState =
+    NavbarState DropdownState
+
+
+
 -- MODEL
 
 
 type alias Model =
     { paginationState : PaginationState
-    , navbarState : NavbarState DropdownState
+    , primaryNavState : NavState
+    , darkNavState : NavState
+    , lightNavState : NavState
     }
 
 
@@ -57,20 +67,22 @@ type DropdownState
 
 init : ( Model, Cmd Msg )
 init =
-    ( { paginationState = paginationState
-      , navbarState = navbarState
+    ( { paginationState = initPaginationState
+      , primaryNavState = initNavState
+      , darkNavState = initNavState
+      , lightNavState = initNavState
       }
     , Cmd.none
     )
 
 
-paginationState =
+initPaginationState =
     { currentSliceNumber = 0 -- starts from 0
     , numberOfSlices = 10
     }
 
 
-navbarState =
+initNavState =
     { toggleMenuState = False
     , dropdownState = LmaoIDontHaveDropdowns
     }
@@ -103,7 +115,7 @@ view sharedState model =
                 , Element.spacing 64
                 ]
                 [ title
-                , navbars model.navbarState
+                , navbars model
                 , buttons
                 , typography
                 , badges
@@ -155,8 +167,8 @@ title =
 --i know this is only 1 navbar but when we get a "dark" and "light" theme going it'll be lit
 
 
-navbars : NavbarState DropdownState -> UiElement Msg
-navbars state =
+navbars : Model -> UiElement Msg
+navbars model =
     section "Navbars" <|
         let
             brand =
@@ -175,8 +187,8 @@ navbars state =
                 Navbar.linkItem NoOp
                     |> Navbar.withMenuTitle "Item 2"
 
-            template backgroundColorRole =
-                Navbar.default NoOp
+            navTemplate backgroundColorRole msg state =
+                Navbar.default msg
                     |> Navbar.withBackground backgroundColorRole
                     |> Navbar.withBrand brand
                     |> Navbar.withMenuItems
@@ -190,9 +202,9 @@ navbars state =
             [ Element.width Element.fill
             , Element.spacing 16
             ]
-            [ template Primary
-            , template Dark
-            , template Light
+            [ navTemplate Primary TogglePrimaryNav model.primaryNavState
+            , navTemplate Dark ToggleDarkNav model.darkNavState
+            , navTemplate Light ToggleLightNav model.lightNavState
             ]
 
 
@@ -551,7 +563,9 @@ rolesAndNames =
 type Msg
     = NoOp
     | PaginationMsg Int
-    | ToggleMenu
+    | TogglePrimaryNav
+    | ToggleDarkNav
+    | ToggleLightNav
 
 
 update : SharedState -> Msg -> Model -> ( Model, Cmd Msg, SharedStateUpdate )
@@ -566,8 +580,20 @@ update sharedState msg model =
             , NoUpdate
             )
 
-        ToggleMenu ->
-            ( { model | navbarState = updateNavbarToggle navbarState }
+        TogglePrimaryNav ->
+            ( { model | primaryNavState = updateNavbarToggle model.primaryNavState }
+            , Cmd.none
+            , NoUpdate
+            )
+
+        ToggleDarkNav ->
+            ( { model | darkNavState = updateNavbarToggle model.darkNavState }
+            , Cmd.none
+            , NoUpdate
+            )
+
+        ToggleLightNav ->
+            ( { model | lightNavState = updateNavbarToggle model.lightNavState }
             , Cmd.none
             , NoUpdate
             )
@@ -578,6 +604,6 @@ updatePaginationSlice newSlice state =
     { state | currentSliceNumber = newSlice }
 
 
-updateNavbarToggle : NavbarState DropdownState -> NavbarState DropdownState
+updateNavbarToggle : NavState -> NavState
 updateNavbarToggle state =
     { state | toggleMenuState = not state.toggleMenuState }
