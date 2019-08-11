@@ -10,6 +10,7 @@ import UiFramework.Alert as Alert
 import UiFramework.Badge as Badge
 import UiFramework.Button as Button
 import UiFramework.Container as Container
+import UiFramework.Navbar as Navbar exposing (NavbarState)
 import UiFramework.Pagination as Pagination exposing (Item(..), PaginationState)
 import UiFramework.Table as Table
 import UiFramework.Types exposing (Role(..))
@@ -46,12 +47,18 @@ type alias Context =
 
 type alias Model =
     { paginationState : PaginationState
+    , navbarState : NavbarState DropdownState
     }
+
+
+type DropdownState
+    = LmaoIDontHaveDropdowns
 
 
 init : ( Model, Cmd Msg )
 init =
     ( { paginationState = paginationState
+      , navbarState = navbarState
       }
     , Cmd.none
     )
@@ -60,6 +67,12 @@ init =
 paginationState =
     { currentSliceNumber = 0 -- starts from 0
     , numberOfSlices = 10
+    }
+
+
+navbarState =
+    { toggleMenuState = False
+    , dropdownState = LmaoIDontHaveDropdowns
     }
 
 
@@ -90,6 +103,7 @@ view sharedState model =
                 , Element.spacing 64
                 ]
                 [ title
+                , navbars model.navbarState
                 , buttons
                 , typography
                 , badges
@@ -135,6 +149,51 @@ title =
                 , Typography.textLead [ align ] <| text subTitleText
                 ]
         )
+
+
+
+--i know this is only 1 navbar but when we get a "dark" and "light" theme going it'll be lit
+
+
+navbars : NavbarState DropdownState -> UiElement Msg
+navbars state =
+    section "Navbars" <|
+        let
+            brand =
+                Element.row []
+                    [ Element.text "Navbar" ]
+
+            homeItem =
+                Navbar.linkItem NoOp
+                    |> Navbar.withMenuTitle "Home"
+
+            item1 =
+                Navbar.linkItem NoOp
+                    |> Navbar.withMenuTitle "Item 1"
+
+            item2 =
+                Navbar.linkItem NoOp
+                    |> Navbar.withMenuTitle "Item 2"
+
+            template backgroundColorRole =
+                Navbar.default NoOp
+                    |> Navbar.withBackground backgroundColorRole
+                    |> Navbar.withBrand brand
+                    |> Navbar.withMenuItems
+                        [ homeItem
+                        , item1
+                        , item2
+                        ]
+                    |> Navbar.view state
+        in
+        UiFramework.uiColumn
+            [ Element.width Element.fill
+            , Element.spacing 16
+            ]
+            [ template Primary
+            , template Dark
+            , template Light
+            ]
 
 
 buttons : UiElement Msg
@@ -492,6 +551,7 @@ rolesAndNames =
 type Msg
     = NoOp
     | PaginationMsg Int
+    | ToggleMenu
 
 
 update : SharedState -> Msg -> Model -> ( Model, Cmd Msg, SharedStateUpdate )
@@ -506,7 +566,18 @@ update sharedState msg model =
             , NoUpdate
             )
 
+        ToggleMenu ->
+            ( { model | navbarState = updateNavbarToggle navbarState }
+            , Cmd.none
+            , NoUpdate
+            )
+
 
 updatePaginationSlice : Int -> PaginationState -> PaginationState
 updatePaginationSlice newSlice state =
     { state | currentSliceNumber = newSlice }
+
+
+updateNavbarToggle : NavbarState DropdownState -> NavbarState DropdownState
+updateNavbarToggle state =
+    { state | toggleMenuState = not state.toggleMenuState }
