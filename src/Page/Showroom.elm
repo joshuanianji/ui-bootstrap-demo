@@ -33,6 +33,7 @@ they are:
   - parentRole : Maybe Role
 
 We need to define a Theme type so we will explicitly know what out theme is, so we can change the title as necessary.
+
 -}
 type alias Context =
     { theme : Theme
@@ -44,18 +45,24 @@ type alias Context =
 
 
 type alias Model =
-    { paginationState : PaginationState}
+    { paginationState : PaginationState
+    }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { paginationState = paginationState}
-    , Cmd.none )
+    ( { paginationState = paginationState
+      }
+    , Cmd.none
+    )
+
 
 paginationState =
-    { numberOfSlices = 10
-    , currentSliceNumber = 1 -- start from 1
+    { currentSliceNumber = 0 -- starts from 0
+    , numberOfSlices = 10
     }
+
+
 
 -- VIEW
 
@@ -204,8 +211,8 @@ badges =
             [ Element.width Element.fill
             , Element.spacing 16
             ]
-            [ -- simple badges 
-            UiFramework.uiWrappedRow
+            [ -- simple badges
+              UiFramework.uiWrappedRow
                 [ Element.spacing 4 ]
                 (List.map
                     (\( role, name ) ->
@@ -213,6 +220,7 @@ badges =
                     )
                     rolesAndNames
                 )
+
             -- pill badges
             , UiFramework.uiWrappedRow
                 [ Element.spacing 4 ]
@@ -407,19 +415,47 @@ pagination : PaginationState -> UiElement Msg
 pagination state =
     section "Pagination" <|
         let
-            paginationItems =
-                [ NumberItem 1
-                , NumberItem 2
-                , NumberItem 3
-                , EllipsisItem
-                , NumberItem 9
-                , NumberItem 10
-                ]
+            ( startNumber, endNumber ) =
+                if state.numberOfSlices <= 5 then
+                    ( 0, state.numberOfSlices - 1 )
+
+                else
+                    ( max 0 (state.currentSliceNumber - 2)
+                    , min (state.numberOfSlices - 1) (state.currentSliceNumber + 2)
+                    )
+
+            itemList =
+                (if startNumber > 0 then
+                    [ Pagination.EllipsisItem ]
+
+                 else
+                    []
+                )
+                    ++ List.map (\index -> Pagination.NumberItem index) (List.range startNumber endNumber)
+                    ++ (if endNumber < (state.numberOfSlices - 1) then
+                            [ Pagination.EllipsisItem ]
+
+                        else
+                            []
+                       )
         in
         Pagination.default PaginationMsg
-            |> Pagination.withItems paginationItems
+            |> Pagination.withItems itemList
+            |> Pagination.withExtraAttrs [ Element.centerX ]
             |> Pagination.view state
-
+            |> (\paginationElement ->
+                    UiFramework.uiColumn
+                        [ Element.width Element.fill
+                        , Element.spacing 20
+                        ]
+                        [ UiFramework.uiParagraph
+                            [ Font.center ]
+                            [ text "Currently on slice #"
+                            , text <| String.fromInt (state.currentSliceNumber + 1)
+                            ]
+                        , paginationElement
+                        ]
+               )
 
 
 section : String -> UiElement Msg -> UiElement Msg
@@ -465,4 +501,12 @@ update sharedState msg model =
             ( model, Cmd.none, NoUpdate )
 
         PaginationMsg int ->
-            ( model, Cmd.none, NoUpdate )
+            ( { model | paginationState = updatePaginationSlice int model.paginationState }
+            , Cmd.none
+            , NoUpdate
+            )
+
+
+updatePaginationSlice : Int -> PaginationState -> PaginationState
+updatePaginationSlice newSlice state =
+    { state | currentSliceNumber = newSlice }
