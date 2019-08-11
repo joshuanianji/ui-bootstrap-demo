@@ -2,28 +2,30 @@ module Router exposing (DropdownMenuState(..), Model, Msg(..), Page(..), init, i
 
 import Browser exposing (UrlRequest(..))
 import Browser.Navigation as Nav
-import Page.Home as Home
-import Page.NotFound as NotFound
-import Page.Showroom as Showroom
-import Routes exposing (Route(..))
-import SharedState exposing (SharedState, SharedStateUpdate, Theme(..))
-import Task
-import Url
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Font as Font
 import FontAwesome.Solid
 import FontAwesome.Styles
 import Html exposing (Html)
+import Page.Home as Home
+import Page.NotFound as NotFound
+import Page.Showroom as Showroom
+import Routes exposing (Route(..))
+import SharedState exposing (SharedState, SharedStateUpdate, Theme(..))
+import Task
 import Themes.Darkly exposing (darklyThemeConfig)
 import UiFramework exposing (toElement)
 import UiFramework.Configuration exposing (defaultThemeConfig)
-import UiFramework.Navbar as Navbar
 import UiFramework.Dropdown as Dropdown
+import UiFramework.Navbar as Navbar
+import UiFramework.Types exposing (Role(..))
+import Url
 
 
 
 -- MODEL
+
 
 type alias Model =
     { route : Routes.Route
@@ -33,10 +35,12 @@ type alias Model =
     , toggleMenuState : Bool
     }
 
+
 type Page
     = HomePage Home.Model
     | ShowroomPage Showroom.Model
     | NotFoundPage NotFound.Model
+
 
 type DropdownMenuState
     = AllClosed
@@ -64,7 +68,8 @@ init url key =
 
 
 
--- VIEW 
+-- VIEW
+
 
 viewApplication : (Msg -> msg) -> Model -> SharedState -> Browser.Document msg
 viewApplication toMsg model sharedState =
@@ -122,7 +127,6 @@ navbar model sharedState =
             { device = sharedState.device
             , themeConfig = SharedState.getThemeConfig sharedState.theme
             , parentRole = Nothing
-            , state = navbarState
             }
 
         brand =
@@ -153,7 +157,7 @@ navbar model sharedState =
     in
     Navbar.default ToggleMenu
         |> Navbar.withBrand brand
-        |> Navbar.withBackgroundColor (Element.rgb255 53 61 71)
+        |> Navbar.withBackground Dark
         |> Navbar.withMenuItems
             [ homeItem
             , showRoomItem
@@ -184,7 +188,10 @@ mapMsg toMsg element =
     element
         |> Element.map toMsg
 
+
+
 -- UPDATE
+
 
 type Msg
     = UrlChanged Url.Url
@@ -196,6 +203,7 @@ type Msg
     | ToggleDropdown
     | ToggleMenu
     | NoOp
+
 
 update : SharedState -> Msg -> Model -> ( Model, Cmd Msg, SharedStateUpdate )
 update sharedState msg model =
