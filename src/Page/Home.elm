@@ -2,15 +2,12 @@ module Page.Home exposing (Model, Msg(..), init, update, view)
 
 import Browser.Navigation as Navigation
 import Element exposing (Element)
-import Element.Background as Background
-import Element.Font as Font
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate)
 import Themes.Darkly exposing (darklyThemeConfig)
 import UiFramework exposing (UiContextual, WithContext, toElement)
 import UiFramework.Alert as Alert
 import UiFramework.Button as Button
-import UiFramework.Configuration exposing (ThemeConfig, defaultThemeConfig)
 import UiFramework.Container as Container
 import UiFramework.Navbar as Navbar
 import UiFramework.Types as Types
@@ -85,7 +82,7 @@ jumbotron =
     in
     Container.jumbotron
         |> Container.withFullWidth
-        |> Container.withChild (Container.simple jumbotronContent)
+        |> Container.withChild (Container.simple [] jumbotronContent)
         |> Container.view
 
 
@@ -118,7 +115,7 @@ description =
 button : UiElement Msg
 button =
     Button.default
-        |> Button.withMessage (Just <| NavigateTo Showroom)
+        |> Button.withMessage (Just <| NavigateTo <| Showroom)
         |> Button.withLabel "Learn more »"
         |> Button.withLarge
         |> Button.view
