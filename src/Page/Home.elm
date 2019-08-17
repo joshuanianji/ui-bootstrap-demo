@@ -4,7 +4,6 @@ import Browser.Navigation as Navigation
 import Element exposing (Element)
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate)
-import Themes.Darkly exposing (darklyThemeConfig)
 import UiFramework exposing (UiContextual, WithContext, toElement)
 import UiFramework.Alert as Alert
 import UiFramework.Button as Button

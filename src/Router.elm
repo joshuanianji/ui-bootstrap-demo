@@ -15,6 +15,7 @@ import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate, Theme(..))
 import Task
 import Themes.Darkly exposing (darklyThemeConfig)
+import Themes.Materia exposing (materiaThemeConfig)
 import UiFramework exposing (toElement)
 import UiFramework.Configuration exposing (defaultThemeConfig)
 import UiFramework.Dropdown as Dropdown
@@ -74,7 +75,10 @@ init url key =
 viewApplication : (Msg -> msg) -> Model -> SharedState -> Browser.Document msg
 viewApplication toMsg model sharedState =
     { title = tabBarTitle model
-    , body = [ view toMsg model sharedState ]
+    , body =
+        [ FontAwesome.Styles.css
+        , view toMsg model sharedState
+        ]
     }
 
 
@@ -101,16 +105,15 @@ view toMsg model sharedState =
         themeConfig =
             SharedState.getThemeConfig sharedState.theme
     in
-    Element.column
+    Element.el
         [ Element.width Element.fill
         , Element.height Element.fill
         , Background.color themeConfig.bodyBackground
         , Font.color <| themeConfig.fontColor themeConfig.bodyBackground
         , Element.paddingXY 0 50
+        , Font.family themeConfig.fontConfig.fontFamily
         ]
-        [ FontAwesome.Styles.css |> Element.html
-        , content model sharedState
-        ]
+        (content model sharedState)
         |> Element.layout [ Element.inFront <| navbar model sharedState ]
         |> Html.map toMsg
 
@@ -152,6 +155,8 @@ navbar model sharedState =
                         |> Dropdown.withMenuTitle "Default"
                     , Dropdown.menuLinkItem (SelectTheme <| Darkly darklyThemeConfig)
                         |> Dropdown.withMenuTitle "Dark"
+                    , Dropdown.menuLinkItem (SelectTheme <| Materia materiaThemeConfig)
+                        |> Dropdown.withMenuTitle "Materia"
                     ]
                 |> Navbar.DropdownItem
     in

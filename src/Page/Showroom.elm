@@ -152,6 +152,9 @@ title =
 
                         Darkly _ ->
                             ( "Darkly", "Night Mode" )
+
+                        Materia _ ->
+                            ( "Materia", "Material Design" )
             in
             UiFramework.uiColumn
                 [ Element.spacing 16

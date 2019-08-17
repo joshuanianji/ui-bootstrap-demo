@@ -6,6 +6,7 @@ import Browser.Navigation as Nav
 import Element exposing (Device)
 import Router exposing (viewApplication)
 import SharedState exposing (SharedState, SharedStateUpdate(..))
+import UiFramework.ResponsiveUtils exposing (classifyDevice)
 import Url
 
 
@@ -50,7 +51,7 @@ init flags url key =
         ( initRouterModel, routerCmd ) =
             Router.init url key
     in
-    ( { sharedState = SharedState.init (Element.classifyDevice flags) key
+    ( { sharedState = SharedState.init (classifyDevice flags) key
       , routerModel = initRouterModel
       }
     , Cmd.map RouterMsg routerCmd
@@ -99,7 +100,7 @@ update msg model =
 
         WindowSizeChange windowSize ->
             updateSharedState model <|
-                SharedState.UpdateDevice (Element.classifyDevice (Debug.log "Window Size" windowSize) |> Debug.log "Device")
+                SharedState.UpdateDevice (classifyDevice (Debug.log "Window Size" windowSize) |> Debug.log "Device")
 
         RouterMsg routerMsg ->
             updateRouter model routerMsg
