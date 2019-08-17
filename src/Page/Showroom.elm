@@ -338,7 +338,7 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "Uh Oh!"
+                            [ Typography.h4 [] <| text "Uh oh!"
                             , UiFramework.uiParagraph []
                                 [ text "Change a few things and try again." ]
                             ]
@@ -353,7 +353,7 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "Yee Haw!"
+                            [ Typography.h4 [] <| text "Yee haw!"
                             , UiFramework.uiParagraph []
                                 [ text "You did it!" ]
                             ]
@@ -383,9 +383,9 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "Hmmm..."
+                            [ Typography.h4 [] <| text "The Primary Role"
                             , UiFramework.uiParagraph []
-                                [ text "The \"primary\" and the \"info\" roles look pretty similar, colour-wise." ]
+                                [ text "People say I'm the best boss. They go, 'God, we've never worked in a place like this. You're hilarious, and you get the best out of us.'" ]
                             ]
                         )
                     |> Alert.view
@@ -400,7 +400,7 @@ alerts =
                             ]
                             [ Typography.h4 [] <| text "Aww man"
                             , UiFramework.uiParagraph []
-                                [ text "Being the \"secondary\" role, this alert has a major inferiority complex." ]
+                                [ text "Being the 'secondary' role, this alert has a major inferiority complex." ]
                             ]
                         )
                     |> Alert.view
