@@ -6,7 +6,6 @@ import Element.Background as Background
 import Element.Font as Font
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate)
-import Themes.Darkly exposing (darklyThemeConfig)
 import UiFramework exposing (UiContextual, WithContext, toElement)
 import UiFramework.Alert as Alert
 import UiFramework.Button as Button
