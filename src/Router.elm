@@ -114,7 +114,10 @@ view toMsg model sharedState =
         , Font.family themeConfig.fontConfig.fontFamily
         ]
         (content model sharedState)
-        |> Element.layout [ Element.inFront <| navbar model sharedState ]
+        |> Element.layout
+            [ Element.inFront <| navbar model sharedState
+            , Font.family themeConfig.fontConfig.fontFamily
+            ]
         |> Html.map toMsg
 
 
