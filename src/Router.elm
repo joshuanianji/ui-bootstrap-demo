@@ -15,6 +15,7 @@ import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate, Theme(..))
 import Task
 import Themes.Darkly exposing (darklyThemeConfig)
+import Themes.Materia exposing (materiaThemeConfig)
 import UiFramework exposing (toElement)
 import UiFramework.Configuration exposing (defaultThemeConfig)
 import UiFramework.Dropdown as Dropdown
@@ -152,6 +153,8 @@ navbar model sharedState =
                         |> Dropdown.withMenuTitle "Default"
                     , Dropdown.menuLinkItem (SelectTheme <| Darkly darklyThemeConfig)
                         |> Dropdown.withMenuTitle "Dark"
+                    , Dropdown.menuLinkItem (SelectTheme <| Materia materiaThemeConfig)
+                        |> Dropdown.withMenuTitle "Materia"
                     ]
                 |> Navbar.DropdownItem
     in

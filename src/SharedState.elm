@@ -15,6 +15,7 @@ type alias SharedState =
 type Theme
     = Default ThemeConfig
     | Darkly ThemeConfig
+    | Materia ThemeConfig
 
 
 getThemeConfig : Theme -> ThemeConfig
@@ -24,6 +25,9 @@ getThemeConfig theme =
             config
 
         Darkly config ->
+            config
+
+        Materia config ->
             config
 
 
