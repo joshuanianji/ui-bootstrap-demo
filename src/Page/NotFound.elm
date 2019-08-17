@@ -56,7 +56,7 @@ view sharedState model =
             , themeConfig = SharedState.getThemeConfig sharedState.theme
             }
     in
-    Container.simple sadness
+    Container.simple [] sadness
         |> toElement context
 
 
