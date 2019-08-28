@@ -4,11 +4,10 @@ import Browser.Navigation as Navigation
 import Element exposing (Element)
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate)
-import UiFramework exposing (UiContextual, WithContext, toElement)
+import UiFramework exposing (WithContext, toElement)
 import UiFramework.Alert as Alert
 import UiFramework.Button as Button
 import UiFramework.Container as Container
-import UiFramework.Navbar as Navbar
 import UiFramework.Types as Types
 import UiFramework.Typography as Typography
 

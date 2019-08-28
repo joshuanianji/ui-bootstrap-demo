@@ -1,11 +1,11 @@
 module Page.Showroom exposing (Model, Msg(..), init, update, view)
 
-import Browser.Navigation as Navigation
+
 import Element exposing (DeviceClass(..), Element)
 import Element.Font as Font
-import Routes exposing (Route)
+
 import SharedState exposing (SharedState, SharedStateUpdate(..), Theme(..))
-import UiFramework exposing (UiContextual, WithContext, toElement)
+import UiFramework exposing ( WithContext, toElement)
 import UiFramework.Alert as Alert
 import UiFramework.Badge as Badge
 import UiFramework.Button as Button
@@ -75,13 +75,13 @@ init =
     , Cmd.none
     )
 
-
+initPaginationState : PaginationState
 initPaginationState =
     { currentSliceNumber = 0 -- starts from 0
     , numberOfSlices = 10
     }
 
-
+initNavState : NavState
 initNavState =
     { toggleMenuState = False
     , dropdownState = LmaoIDontHaveDropdowns

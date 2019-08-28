@@ -3,7 +3,6 @@ module Main exposing (main)
 import Browser
 import Browser.Events
 import Browser.Navigation as Nav
-import Element exposing (Device)
 import Router exposing (viewApplication)
 import SharedState exposing (SharedState, SharedStateUpdate(..))
 import UiFramework.ResponsiveUtils exposing (classifyDevice)
@@ -13,7 +12,7 @@ import Url
 
 -- PROGRAM --
 
-
+main : Program Flags Model Msg
 main =
     Browser.application
         { init = init
@@ -72,8 +71,7 @@ view model =
 
 
 type Msg
-    = NoOp
-    | WindowSizeChange WindowSize
+    = WindowSizeChange WindowSize
     | RouterMsg Router.Msg
     | LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
@@ -82,9 +80,6 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        NoOp ->
-            ( model, Cmd.none )
-
         -- Browser.application needs these two update functions
         UrlChanged url ->
             -- handling url changes
