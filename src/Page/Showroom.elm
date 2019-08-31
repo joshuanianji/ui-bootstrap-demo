@@ -33,7 +33,7 @@ they are:
   - themeConfig : ThemeConfig
   - parentRole : Maybe Role
 
-We need to define a Theme type so we will explicitly know what out theme is, so we can change the title as necessary.
+We need to define a Theme type so we will explicitly know what our theme is, so we can change the title as necessary.
 
 -}
 type alias Context =
@@ -165,9 +165,6 @@ title =
                 ]
         )
 
-
-
---i know this is only 1 navbar but when we get a "dark" and "light" theme going it'll be lit
 
 
 navbars : Model -> UiElement Msg
