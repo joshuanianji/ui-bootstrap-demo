@@ -95,7 +95,7 @@ update msg model =
 
         WindowSizeChange windowSize ->
             updateSharedState model <|
-                SharedState.UpdateDevice (classifyDevice (Debug.log "Window Size" windowSize) |> Debug.log "Device")
+                SharedState.UpdateDevice (classifyDevice windowSize)
 
         RouterMsg routerMsg ->
             updateRouter model routerMsg
