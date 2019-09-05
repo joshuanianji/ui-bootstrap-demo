@@ -3,7 +3,7 @@ module Main exposing (main)
 import Browser
 import Browser.Events
 import Browser.Navigation as Nav
-import Router exposing (viewApplication)
+import Router
 import SharedState exposing (SharedState, SharedStateUpdate(..))
 import UiFramework.ResponsiveUtils exposing (classifyDevice)
 import Url
@@ -11,6 +11,7 @@ import Url
 
 
 -- PROGRAM --
+
 
 main : Program Flags Model Msg
 main =
@@ -63,7 +64,7 @@ init flags url key =
 
 view : Model -> Browser.Document Msg
 view model =
-    viewApplication RouterMsg model.routerModel model.sharedState
+    Router.viewApplication RouterMsg model.routerModel model.sharedState
 
 
 
@@ -128,7 +129,10 @@ updateSharedState model ssupdate =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Browser.Events.onResize
-        (\x y ->
-            WindowSizeChange (WindowSize x y)
-        )
+    Sub.batch
+        [ Browser.Events.onResize
+            (\x y ->
+                WindowSizeChange (WindowSize x y)
+            )
+        , Sub.map RouterMsg <| Router.subscriptions model.routerModel
+        ]

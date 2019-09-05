@@ -1,11 +1,9 @@
 module Page.Showroom exposing (Model, Msg(..), init, update, view)
 
-
 import Element exposing (DeviceClass(..), Element)
 import Element.Font as Font
-
 import SharedState exposing (SharedState, SharedStateUpdate(..), Theme(..))
-import UiFramework exposing ( WithContext, toElement)
+import UiFramework
 import UiFramework.Alert as Alert
 import UiFramework.Badge as Badge
 import UiFramework.Button as Button
@@ -22,7 +20,7 @@ import UiFramework.Typography as Typography
 
 
 type alias UiElement msg =
-    WithContext Context msg
+    UiFramework.WithContext Context msg
 
 
 {-| the ui Bootstrap defines three default fields, as defined in the source code (in UiFramwork.Internal)
@@ -75,11 +73,13 @@ init =
     , Cmd.none
     )
 
+
 initPaginationState : PaginationState
 initPaginationState =
     { currentSliceNumber = 0 -- starts from 0
     , numberOfSlices = 10
     }
+
 
 initNavState : NavState
 initNavState =
@@ -90,11 +90,6 @@ initNavState =
 
 
 -- VIEW
-
-
-text : String -> UiElement Msg
-text str =
-    UiFramework.uiText (\_ -> str)
 
 
 view : SharedState -> Model -> Element Msg
@@ -125,7 +120,7 @@ view sharedState model =
                 ]
             )
         |> Container.view
-        |> toElement context
+        |> UiFramework.toElement context
 
 
 
@@ -134,7 +129,7 @@ view sharedState model =
 
 title : UiElement Msg
 title =
-    UiFramework.flatMap
+    UiFramework.withContext
         (\context ->
             let
                 align =
@@ -160,11 +155,10 @@ title =
                 [ Element.spacing 16
                 , Element.width Element.fill
                 ]
-                [ Typography.display4 [ align ] <| text titleText
-                , Typography.textLead [ align ] <| text subTitleText
+                [ Typography.display4 [ align ] <| UiFramework.uiText titleText
+                , Typography.textLead [ align ] <| UiFramework.uiText subTitleText
                 ]
         )
-
 
 
 navbars : Model -> UiElement Msg
@@ -320,9 +314,9 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "Whoa bro!"
+                            [ Typography.h4 [] <| UiFramework.uiText "Whoa bro!"
                             , UiFramework.uiParagraph []
-                                [ text "Watch out - you got warning." ]
+                                [ UiFramework.uiText "Watch out - you got warning." ]
                             ]
                         )
                     |> Alert.view
@@ -335,9 +329,9 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "Uh oh!"
+                            [ Typography.h4 [] <| UiFramework.uiText "Uh oh!"
                             , UiFramework.uiParagraph []
-                                [ text "Change a few things and try again." ]
+                                [ UiFramework.uiText "Change a few things and try again." ]
                             ]
                         )
                     |> Alert.view
@@ -350,9 +344,9 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "Yee haw!"
+                            [ Typography.h4 [] <| UiFramework.uiText "Yee haw!"
                             , UiFramework.uiParagraph []
-                                [ text "You did it!" ]
+                                [ UiFramework.uiText "You did it!" ]
                             ]
                         )
                     |> Alert.view
@@ -365,9 +359,9 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "Heads up!"
+                            [ Typography.h4 [] <| UiFramework.uiText "Heads up!"
                             , UiFramework.uiParagraph []
-                                [ text "This alert is an attention whore." ]
+                                [ UiFramework.uiText "This alert is an attention whore." ]
                             ]
                         )
                     |> Alert.view
@@ -380,9 +374,9 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "The Primary Role"
+                            [ Typography.h4 [] <| UiFramework.uiText "The Primary Role"
                             , UiFramework.uiParagraph []
-                                [ text "People say I'm the best boss. They go, 'God, we've never worked in a place like this. You're hilarious, and you get the best out of us.'" ]
+                                [ UiFramework.uiText "People say I'm the best boss. They go, 'God, we've never worked in a place like this. You're hilarious, and you get the best out of us.'" ]
                             ]
                         )
                     |> Alert.view
@@ -395,9 +389,9 @@ alerts =
                             [ Element.width Element.fill
                             , Element.spacing 8
                             ]
-                            [ Typography.h4 [] <| text "Aww man"
+                            [ Typography.h4 [] <| UiFramework.uiText "Aww man"
                             , UiFramework.uiParagraph []
-                                [ text "Being the 'secondary' role, this alert has a major inferiority complex." ]
+                                [ UiFramework.uiText "Being the 'secondary' role, this alert has a major inferiority complex." ]
                             ]
                         )
                     |> Alert.view
@@ -420,17 +414,17 @@ table =
     section "Table" <|
         let
             tableColumn =
-                [ { head = text "Role"
-                  , viewData = \data -> UiFramework.uiParagraph [ Font.bold ] [ text data.role ]
+                [ { head = UiFramework.uiText "Role"
+                  , viewData = \data -> UiFramework.uiParagraph [ Font.bold ] [ UiFramework.uiText data.role ]
                   }
-                , { head = text "Column 1"
-                  , viewData = \data -> UiFramework.uiParagraph [] [ text data.column1 ]
+                , { head = UiFramework.uiText "Column 1"
+                  , viewData = \data -> UiFramework.uiParagraph [] [ UiFramework.uiText data.column1 ]
                   }
-                , { head = text "Column 2"
-                  , viewData = \data -> UiFramework.uiParagraph [] [ text data.column2 ]
+                , { head = UiFramework.uiText "Column 2"
+                  , viewData = \data -> UiFramework.uiParagraph [] [ UiFramework.uiText data.column2 ]
                   }
-                , { head = text "Column 3"
-                  , viewData = \data -> UiFramework.uiParagraph [] [ text data.column3 ]
+                , { head = UiFramework.uiText "Column 3"
+                  , viewData = \data -> UiFramework.uiParagraph [] [ UiFramework.uiText data.column3 ]
                   }
                 ]
 
@@ -471,13 +465,13 @@ typography =
                 [ Element.width Element.fill
                 , Element.spacing 16
                 ]
-                [ Typography.h1 [] (text "Heading 1")
-                , Typography.h2 [] (text "Heading 2")
-                , Typography.h3 [] (text "Heading 3")
-                , Typography.h4 [] (text "Heading 4")
-                , Typography.h5 [] (text "Heading 5")
-                , Typography.h6 [] (text "Heading 6")
-                , Typography.textLead [] (text "Lead Text")
+                [ Typography.h1 [] (UiFramework.uiText "Heading 1")
+                , Typography.h2 [] (UiFramework.uiText "Heading 2")
+                , Typography.h3 [] (UiFramework.uiText "Heading 3")
+                , Typography.h4 [] (UiFramework.uiText "Heading 4")
+                , Typography.h5 [] (UiFramework.uiText "Heading 5")
+                , Typography.h6 [] (UiFramework.uiText "Heading 6")
+                , Typography.textLead [] (UiFramework.uiText "Lead Text")
                 ]
             ]
 
@@ -491,9 +485,25 @@ pagination state =
                     ( 0, state.numberOfSlices - 1 )
 
                 else
-                    ( max 0 (state.currentSliceNumber - 2)
-                    , min (state.numberOfSlices - 1) (state.currentSliceNumber + 2)
-                    )
+                    let
+                        start =
+                            if state.currentSliceNumber < 3 then
+                                0
+
+                            else if state.currentSliceNumber + 2 < state.numberOfSlices then
+                                state.currentSliceNumber - 2
+
+                            else
+                                state.numberOfSlices - 5
+
+                        end =
+                            if start + 4 < state.numberOfSlices then
+                                start + 4
+
+                            else
+                                state.numberOfSlices - 1
+                    in
+                    ( start, end )
 
             itemList =
                 (if startNumber > 0 then
@@ -521,8 +531,8 @@ pagination state =
                         ]
                         [ UiFramework.uiParagraph
                             [ Font.center ]
-                            [ text "Currently on slice #"
-                            , text <| String.fromInt (state.currentSliceNumber + 1)
+                            [ UiFramework.uiText "Currently on slice #"
+                            , UiFramework.uiText <| String.fromInt (state.currentSliceNumber + 1)
                             ]
                         , paginationElement
                         ]
@@ -538,7 +548,7 @@ section sectionTitle sectionContent =
         [ Typography.h1
             [ Element.paddingXY 0 32
             ]
-            (text sectionTitle)
+            (UiFramework.uiText sectionTitle)
         , sectionContent
         ]
 

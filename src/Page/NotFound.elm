@@ -1,11 +1,10 @@
 module Page.NotFound exposing (Model, Msg(..), init, update, view)
 
-
 import Element exposing (Element)
 import Element.Font as Font
 import FontAwesome.Solid
 import SharedState exposing (SharedState, SharedStateUpdate(..))
-import UiFramework exposing (WithContext, fromElement, toElement)
+import UiFramework
 import UiFramework.Container as Container
 import UiFramework.Icon as Icon
 import UiFramework.Types exposing (Role(..))
@@ -17,7 +16,7 @@ import UiFramework.Typography as Typography
 
 
 type alias UiElement msg =
-    WithContext Context msg
+    UiFramework.WithContext Context msg
 
 
 
@@ -41,11 +40,6 @@ type alias Context =
 -- VIEW
 
 
-text : String -> UiElement Msg
-text str =
-    UiFramework.uiText (\_ -> str)
-
-
 view : SharedState -> Model -> Element Msg
 view sharedState model =
     let
@@ -56,7 +50,7 @@ view sharedState model =
             }
     in
     Container.simple [] sadness
-        |> toElement context
+        |> UiFramework.toElement context
 
 
 sadness : UiElement Msg
@@ -67,18 +61,18 @@ sadness =
         , Element.padding 40
         ]
         [ Typography.display1 [ Element.centerX ] icon
-        , Typography.textLead [] (text "We cannot find the page :(")
+        , Typography.textLead [] (UiFramework.uiText "We cannot find the page :(")
         ]
 
 
 icon : UiElement Msg
 icon =
-    (\context ->
-        Element.el
-            [ Font.color <| context.themeConfig.themeColor Secondary ]
-            (Icon.view FontAwesome.Solid.frown)
-    )
-        |> fromElement
+    UiFramework.fromElement
+        (\context ->
+            Element.el
+                [ Font.color <| context.themeConfig.globalConfig.themeColor Secondary ]
+                (Icon.view FontAwesome.Solid.frown)
+        )
 
 
 

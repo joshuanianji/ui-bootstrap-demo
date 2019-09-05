@@ -4,7 +4,7 @@ import Browser.Navigation as Navigation
 import Element exposing (Element)
 import Routes exposing (Route(..))
 import SharedState exposing (SharedState, SharedStateUpdate)
-import UiFramework exposing (WithContext, toElement)
+import UiFramework
 import UiFramework.Alert as Alert
 import UiFramework.Button as Button
 import UiFramework.Container as Container
@@ -17,7 +17,7 @@ import UiFramework.Typography as Typography
 
 
 type alias UiElement msg =
-    WithContext Context msg
+    UiFramework.WithContext Context msg
 
 
 
@@ -43,11 +43,6 @@ type alias Context =
 -- VIEW
 
 
-text : String -> UiElement Msg
-text str =
-    UiFramework.uiText (\_ -> str)
-
-
 view : SharedState -> Model -> Element Msg
 view sharedState model =
     let
@@ -57,7 +52,7 @@ view sharedState model =
             , themeConfig = SharedState.getThemeConfig sharedState.theme
             }
     in
-    toElement context <|
+    UiFramework.toElement context <|
         jumbotron
 
 
@@ -87,14 +82,14 @@ jumbotron =
 title : UiElement Msg
 title =
     Typography.display2 [ Element.paddingXY 0 30 ] <|
-        UiFramework.uiParagraph [] [ text "Hello, World!" ]
+        UiFramework.uiParagraph [] [ UiFramework.uiText "Hello, World!" ]
 
 
 lead : UiElement Msg
 lead =
     UiFramework.uiParagraph []
         [ Typography.textLead [] <|
-            text "This is a very simple demo template. Here we have a navigation bar with a dropdown, as well as a jumbotron."
+            UiFramework.uiText "This is a very simple demo template. Here we have a navigation bar with a dropdown, as well as a jumbotron."
         ]
 
 
@@ -102,11 +97,11 @@ description : UiElement Msg
 description =
     UiFramework.uiColumn [ Element.spacing 8 ]
         [ UiFramework.uiParagraph []
-            [ text
+            [ UiFramework.uiText
                 "Go ahead and change the themes between the two preset ones we have right now."
             ]
         , UiFramework.uiParagraph []
-            [ text "We'll have to fix the button soon haha it looks a bit funky." ]
+            [ UiFramework.uiText "We'll have to fix the button soon haha it looks a bit funky." ]
         ]
 
 
@@ -121,7 +116,7 @@ button =
 
 alert : UiElement Msg
 alert =
-    Alert.simple Types.Warning <| text "This is an alert!"
+    Alert.simple Types.Warning <| UiFramework.uiText "This is an alert!"
 
 
 

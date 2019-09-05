@@ -1,6 +1,7 @@
-module Router exposing (DropdownMenuState(..), Model, Msg(..), Page(..), init, initWith, navigateTo, update, updateWith, viewApplication)
+module Router exposing (Model, Msg(..), Page(..), init, subscriptions, update, viewApplication)
 
 import Browser exposing (UrlRequest(..))
+import Browser.Events as Events
 import Browser.Navigation as Nav
 import Element exposing (Element)
 import Element.Background as Background
@@ -8,6 +9,7 @@ import Element.Font as Font
 import FontAwesome.Solid
 import FontAwesome.Styles
 import Html exposing (Html)
+import Json.Decode as Json
 import Page.Home as Home
 import Page.NotFound as NotFound
 import Page.Showroom as Showroom
@@ -16,7 +18,7 @@ import SharedState exposing (SharedState, SharedStateUpdate, Theme(..))
 import Task
 import Themes.Darkly exposing (darklyThemeConfig)
 import Themes.Materia exposing (materiaThemeConfig)
-import UiFramework exposing (toElement)
+import UiFramework
 import UiFramework.Configuration exposing (defaultThemeConfig)
 import UiFramework.Dropdown as Dropdown
 import UiFramework.Navbar as Navbar
@@ -48,10 +50,6 @@ type DropdownMenuState
     | ThemeSelectOpen
 
 
-
--- init with the NotFoundPage, but send a command where we look at the Url and change the page
-
-
 init : Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init url key =
     let
@@ -66,6 +64,15 @@ init url key =
       }
     , (Task.perform identity << Task.succeed) <| UrlChanged url
     )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    if model.dropdownMenuState /= AllClosed then
+        Events.onClick (Json.succeed CloseDropdown)
+
+    else
+        Sub.none
 
 
 
@@ -108,15 +115,15 @@ view toMsg model sharedState =
     Element.el
         [ Element.width Element.fill
         , Element.height Element.fill
-        , Background.color themeConfig.bodyBackground
-        , Font.color <| themeConfig.fontColor themeConfig.bodyBackground
+        , Background.color themeConfig.globalConfig.bodyBackground
+        , Font.color <| themeConfig.globalConfig.fontColor themeConfig.globalConfig.bodyBackground
         , Element.paddingXY 0 50
-        , Font.family themeConfig.fontConfig.fontFamily
+        , Font.family themeConfig.globalConfig.fontConfig.fontFamily
         ]
         (content model sharedState)
         |> Element.layout
             [ Element.inFront <| navbar model sharedState
-            , Font.family themeConfig.fontConfig.fontFamily
+            , Font.family themeConfig.globalConfig.fontConfig.fontFamily
             ]
         |> Html.map toMsg
 
@@ -172,7 +179,7 @@ navbar model sharedState =
             , themeSelect
             ]
         |> Navbar.view navbarState
-        |> toElement context
+        |> UiFramework.toElement context
 
 
 content : Model -> SharedState -> Element Msg
@@ -210,7 +217,7 @@ type Msg
     | SelectTheme Theme
     | ToggleDropdown
     | ToggleMenu
-    | NoOp
+    | CloseDropdown
 
 
 update : SharedState -> Msg -> Model -> ( Model, Cmd Msg, SharedStateUpdate )
@@ -253,6 +260,12 @@ update sharedState msg model =
             ( { model | dropdownMenuState = AllClosed }
             , Cmd.none
             , SharedState.UpdateTheme theme
+            )
+
+        ( CloseDropdown, _ ) ->
+            ( { model | dropdownMenuState = AllClosed }
+            , Cmd.none
+            , SharedState.NoUpdate
             )
 
         ( ToggleDropdown, _ ) ->
