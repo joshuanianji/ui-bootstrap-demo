@@ -9,6 +9,7 @@ import Element.Font as Font
 import FontAwesome.Solid
 import FontAwesome.Styles
 import Html exposing (Html)
+import Html.Attributes
 import Json.Decode as Json
 import Page.Home as Home
 import Page.NotFound as NotFound
@@ -123,9 +124,28 @@ view toMsg model sharedState =
         (content model sharedState)
         |> Element.layout
             [ Element.inFront <| navbar model sharedState
+            , Element.inFront <| ribbon
             , Font.family themeConfig.globalConfig.fontConfig.fontFamily
             ]
         |> Html.map toMsg
+
+
+ribbon : Element Msg
+ribbon =
+    Html.a
+        [ Html.Attributes.href "https://github.com/joshuanianji/ui-bootstrap-demo" ]
+        [ Html.img
+            [ Html.Attributes.alt "Fork me on GitHub"
+            , Html.Attributes.src "https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"
+            , Html.Attributes.style "position" "absolute"
+            , Html.Attributes.style "top" "0"
+            , Html.Attributes.style "left" "0"
+            , Html.Attributes.style "border" "0"
+            , Html.Attributes.style "opacity" "0.75"
+            ]
+            []
+        ]
+        |> Element.html
 
 
 navbar : Model -> SharedState -> Element Msg
@@ -144,7 +164,7 @@ navbar model sharedState =
 
         brand =
             Element.row []
-                [ Element.text "Navbar" ]
+                [ Element.text "elm-ui-bootstrap demo" ]
 
         homeItem =
             Navbar.linkItem (NavigateTo Home)
