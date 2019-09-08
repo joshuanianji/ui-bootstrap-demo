@@ -307,94 +307,76 @@ alerts =
     section "Alert" <|
         let
             warning =
-                Alert.default
-                    |> Alert.withRole Warning
-                    |> Alert.withChild
-                        (UiFramework.uiColumn
-                            [ Element.width Element.fill
-                            , Element.spacing 8
-                            ]
-                            [ Typography.h4 [] <| UiFramework.uiText "Whoa bro!"
-                            , UiFramework.uiParagraph []
-                                [ UiFramework.uiText "Watch out - you got warning." ]
-                            ]
-                        )
-                    |> Alert.view
+                Alert.simpleWarning
+                    (UiFramework.uiColumn
+                        [ Element.width Element.fill
+                        , Element.spacing 8
+                        ]
+                        [ Typography.h4 [] <| UiFramework.uiText "Whoa bro!"
+                        , UiFramework.uiParagraph []
+                            [ UiFramework.uiText "Watch out - you got warning." ]
+                        ]
+                    )
 
             danger =
-                Alert.default
-                    |> Alert.withRole Danger
-                    |> Alert.withChild
-                        (UiFramework.uiColumn
-                            [ Element.width Element.fill
-                            , Element.spacing 8
-                            ]
-                            [ Typography.h4 [] <| UiFramework.uiText "Uh oh!"
-                            , UiFramework.uiParagraph []
-                                [ UiFramework.uiText "Change a few things and try again." ]
-                            ]
-                        )
-                    |> Alert.view
+                Alert.simpleDanger
+                    (UiFramework.uiColumn
+                        [ Element.width Element.fill
+                        , Element.spacing 8
+                        ]
+                        [ Typography.h4 [] <| UiFramework.uiText "Uh oh!"
+                        , UiFramework.uiParagraph []
+                            [ UiFramework.uiText "Change a few things and try again." ]
+                        ]
+                    )
 
             success =
-                Alert.default
-                    |> Alert.withRole Success
-                    |> Alert.withChild
-                        (UiFramework.uiColumn
-                            [ Element.width Element.fill
-                            , Element.spacing 8
-                            ]
-                            [ Typography.h4 [] <| UiFramework.uiText "Yee haw!"
-                            , UiFramework.uiParagraph []
-                                [ UiFramework.uiText "You did it!" ]
-                            ]
-                        )
-                    |> Alert.view
+                Alert.simpleSuccess
+                    (UiFramework.uiColumn
+                        [ Element.width Element.fill
+                        , Element.spacing 8
+                        ]
+                        [ Typography.h4 [] <| UiFramework.uiText "Yee haw!"
+                        , UiFramework.uiParagraph []
+                            [ UiFramework.uiText "You did it!" ]
+                        ]
+                    )
 
             info =
-                Alert.default
-                    |> Alert.withRole Info
-                    |> Alert.withChild
-                        (UiFramework.uiColumn
-                            [ Element.width Element.fill
-                            , Element.spacing 8
-                            ]
-                            [ Typography.h4 [] <| UiFramework.uiText "Heads up!"
-                            , UiFramework.uiParagraph []
-                                [ UiFramework.uiText "This alert is an attention whore." ]
-                            ]
-                        )
-                    |> Alert.view
+                Alert.simpleInfo
+                    (UiFramework.uiColumn
+                        [ Element.width Element.fill
+                        , Element.spacing 8
+                        ]
+                        [ Typography.h4 [] <| UiFramework.uiText "Heads up!"
+                        , UiFramework.uiParagraph []
+                            [ UiFramework.uiText "This alert is an attention whore." ]
+                        ]
+                    )
 
             primary =
-                Alert.default
-                    |> Alert.withRole Primary
-                    |> Alert.withChild
-                        (UiFramework.uiColumn
-                            [ Element.width Element.fill
-                            , Element.spacing 8
-                            ]
-                            [ Typography.h4 [] <| UiFramework.uiText "The Primary Role"
-                            , UiFramework.uiParagraph []
-                                [ UiFramework.uiText "People say I'm the best boss. They go, 'God, we've never worked in a place like this. You're hilarious, and you get the best out of us.'" ]
-                            ]
-                        )
-                    |> Alert.view
+                Alert.simplePrimary
+                    (UiFramework.uiColumn
+                        [ Element.width Element.fill
+                        , Element.spacing 8
+                        ]
+                        [ Typography.h4 [] <| UiFramework.uiText "The Primary Role"
+                        , UiFramework.uiParagraph []
+                            [ UiFramework.uiText "People say I'm the best boss. They go, 'God, we've never worked in a place like this. You're hilarious, and you get the best out of us.'" ]
+                        ]
+                    )
 
             secondary =
-                Alert.default
-                    |> Alert.withRole Secondary
-                    |> Alert.withChild
-                        (UiFramework.uiColumn
-                            [ Element.width Element.fill
-                            , Element.spacing 8
-                            ]
-                            [ Typography.h4 [] <| UiFramework.uiText "Aww man"
-                            , UiFramework.uiParagraph []
-                                [ UiFramework.uiText "Being the 'secondary' role, this alert has a major inferiority complex." ]
-                            ]
-                        )
-                    |> Alert.view
+                Alert.simpleSecondary
+                    (UiFramework.uiColumn
+                        [ Element.width Element.fill
+                        , Element.spacing 8
+                        ]
+                        [ Typography.h4 [] <| UiFramework.uiText "Aww man"
+                        , UiFramework.uiParagraph []
+                            [ UiFramework.uiText "Being the 'secondary' role, this alert has a major inferiority complex." ]
+                        ]
+                    )
         in
         UiFramework.uiColumn
             [ Element.width Element.fill
