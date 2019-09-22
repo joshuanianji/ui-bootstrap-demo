@@ -22,6 +22,7 @@ import Themes.Materia exposing (materiaThemeConfig)
 import UiFramework
 import UiFramework.Configuration exposing (defaultThemeConfig)
 import UiFramework.Dropdown as Dropdown
+import UiFramework.Icon as Icon
 import UiFramework.Navbar as Navbar
 import UiFramework.Types exposing (Role(..))
 import Url
@@ -168,17 +169,17 @@ navbar model sharedState =
 
         homeItem =
             Navbar.linkItem (NavigateTo Home)
-                |> Navbar.withMenuIcon FontAwesome.Solid.home
+                |> Navbar.withMenuIcon (Icon.fontAwesome FontAwesome.Solid.home)
                 |> Navbar.withMenuTitle "Home"
 
         showRoomItem =
             Navbar.linkItem (NavigateTo Showroom)
-                |> Navbar.withMenuIcon FontAwesome.Solid.laptopCode
+                |> Navbar.withMenuIcon (Icon.fontAwesome FontAwesome.Solid.laptopCode)
                 |> Navbar.withMenuTitle "Showroom"
 
         themeSelect =
             Dropdown.default ToggleDropdown ThemeSelectOpen
-                |> Dropdown.withIcon FontAwesome.Solid.flag
+                |> Dropdown.withIcon (Icon.fontAwesome FontAwesome.Solid.flag)
                 |> Dropdown.withTitle "Theme"
                 |> Dropdown.withMenuItems
                     [ Dropdown.menuLinkItem (SelectTheme <| Default defaultThemeConfig)
