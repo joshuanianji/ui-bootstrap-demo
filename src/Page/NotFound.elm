@@ -71,7 +71,9 @@ icon =
         (\context ->
             Element.el
                 [ Font.color <| context.themeConfig.globalConfig.themeColor Secondary ]
-                (Icon.view FontAwesome.Solid.frown)
+                (Icon.fontAwesome FontAwesome.Solid.frown
+                    |> Icon.viewAsElement
+                )
         )
 
 
