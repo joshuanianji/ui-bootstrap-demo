@@ -1,0 +1,17 @@
+{
+    "name": "ui-bootstrap-demo",
+    "version": "1.0.0",
+    "description": "This small application is created to demonstrate [elm-ui-bootstrap](https://github.com/jiwhiz/elm-ui-bootstrap), a WIP package that aims to rewrite Bootstrap with Elm Ui.",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "elm-app start",
+        "build": "elm-app build"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "create-elm-app": "^5.22.0",
+        "elm-tooling": "^1.14.0"
+    }
+}
